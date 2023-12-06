@@ -48,10 +48,12 @@
         <!-- Tell WiX to install the Service -->
         <ServiceInstall Id="ServiceInstaller"
                         Type="ownProcess"
+                        Vital="yes"
                         Name="WebApiAsService"
                         DisplayName="$(Name)"
                         Description="My description."
                         Start="auto"
+                        Account="LocalSystem"
                         ErrorControl="normal" />
 
         <!-- Tell WiX to start the Service -->

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Dynamic;
 
@@ -8,17 +9,17 @@ namespace WebApiAsService.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        public WeatherForecastController()
+        private readonly EfSqliteAdapter _context;
+
+        public WeatherForecastController(EfSqliteAdapter context)
         {
+            _context = context;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public string Get()
+        public async Task<List<WeatherForecast>> GetAll()
         {
-            string json = System.IO.File.ReadAllText("appsettings.json");
-
-            dynamic objAppSettings = JsonConvert.DeserializeObject<ExpandoObject>(json)!;
-            return objAppSettings.Identifier;
+            return await _context.WeatherForecasts.ToListAsync();
         }
     }
 }
