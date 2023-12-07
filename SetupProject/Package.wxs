@@ -62,11 +62,23 @@
                         Name="WebApiAsService"
                         Wait="true" />
       </Component>
+      <Component Id="Sqlite">
+        <File Id="e_sqlite3.dll"
+              Source="$(var.WebApiAsService.TargetDir)publish\e_sqlite3.dll"
+              KeyPath="true" />
+      </Component>
+      <Component Id="AspNetCore">
+        <File Id="aspnetcorev2_inprocess.dll"
+              Source="$(var.WebApiAsService.TargetDir)publish\aspnetcorev2_inprocess.dll"
+              KeyPath="true" />
+      </Component>
     </DirectoryRef>
 
     <!-- Tell WiX to install the files -->
     <Feature Id="Service" Title="WebApiAsService Setup" Level="1">
       <ComponentRef Id="ServiceExecutable" />
+      <ComponentRef Id="Sqlite" />
+      <ComponentRef Id="AspNetCore" />
     </Feature>
 
   </Package>
